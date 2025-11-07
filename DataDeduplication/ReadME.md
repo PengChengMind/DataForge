@@ -74,7 +74,7 @@ spark-submit
     --driver-memory ${driver_memory}   \
     --executor-memory ${executor_memory}   \
     --executor-cores ${executor_cores}   \
-    spark-script/SparkScalaProjects-3.1-SNAPSHOT-jar-with-dependencies.jar   \
+    SparkScalaProjects-3.1-SNAPSHOT-jar-with-dependencies.jar   \
     --input $outside_input_path   \
     --output $outside_output_path   \
     --file_mode json   \
