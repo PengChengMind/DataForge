@@ -1,0 +1,12 @@
+*.txt*
+*.csv
+*.jar
+*.class
+part-*
+*part-*
+*.zip
+*.gz
+question-*
+*.db
+.idea/*
+target/*
