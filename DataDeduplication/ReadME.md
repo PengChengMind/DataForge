@@ -77,7 +77,6 @@ spark-submit
     spark-script/SparkScalaProjects-3.1-SNAPSHOT-jar-with-dependencies.jar   \
     --input $outside_input_path   \
     --output $outside_output_path   \
-    --input_partitions 0   \
     --file_mode json   \
     --json_field text   \
     --language_mode cn   \
