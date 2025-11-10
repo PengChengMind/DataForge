@@ -11,17 +11,17 @@
 * 模型评估：交叉验证，模型预测准确率为98.7%。
 
 ### 一键体验
-# 1. 下载并安装
+#### 1. 下载并安装
 * 程序运行环境配置参考zrequirements.txt
 ```
     pip install -r zrequirements.txt
 ```
-# 2.下载预训练权重
+#### 2.下载预训练权重
 ```
     wget -O model.bin https://openi.pcl.ac.cn/PengChengMind-Corpora/DataForge/src/branch/master/AbuseFilter/model.pt
 ```
 
-# 3. 流式服务（可选）
+#### 3. 流式服务（可选）
 python apicall.py --port 8080 --workers 4
 
 
