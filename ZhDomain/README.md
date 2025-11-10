@@ -19,7 +19,3 @@
 ### 数据领域分布
 * 待整理...
 
-## Reference
-[1] BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding  
-[2] ERNIE: Enhanced Representation through Knowledge Integration 
-[3] DoReMi: Optimizing Data Mixtures Speeds Up Language Model Pretraining
