@@ -42,9 +42,16 @@ DataForge支持以下特性：
 ## 使用指南
 
 我们提供了一系列使用指南，帮助用户快速体验FlagData的特性。
-* [Tutorial 1: 清洗从互联网上获取到的原始文本](https://openi.pcl.ac.cn/LLM-Research/DataQuality/src/branch/master/DataCollector2/CleanRules)
-* [Tutorial 2: 敏感词&广告词过滤](https://openi.pcl.ac.cn/LLM-Research/DataQuality/src/branch/master/DataCollector2/Adclassv5)
-* [Tutorial 3: 质量评估工具](https://openi.pcl.ac.cn/LLM-Research/DataQuality/src/branch/master/DataCollector2/quality_EvaluateTool)
+* [Tutorial 1: 数据预处理]()
+* [Tutorial 2: 篇章级过滤]()
+* [Tutorial 3: 样本间去重](https://openi.pcl.ac.cn/PengChengMind-Corpora/DataForge/src/branch/master/DataDeduplication)
+* [Tutorial 4: 样本内去重]()
+* [Tutorial 5: 不良内容过滤器](https://openi.pcl.ac.cn/PengChengMind-Corpora/DataForge/src/branch/master/AbuseFilter)
+* [Tutorial 6: 广告词过滤器](https://openi.pcl.ac.cn/PengChengMind-Corpora/DataForge/src/branch/master/adv_filter)
+* [Tutorial 7: 中文质量评估工具](https://openi.pcl.ac.cn/PengChengMind-Corpora/DataForge/src/branch/master/DataCollector2/quality_EvaluateTool)
+* [Tutorial 8: 英文质量评估工具](https://openi.pcl.ac.cn/PengChengMind-Corpora/DataForge/src/branch/master/DataCollector2/quality_EvaluateTool)
+* [Tutorial 9: 中文分类模型](https://openi.pcl.ac.cn/PengChengMind-Corpora/DataForge/src/branch/master/ZhDomain)
+* [Tutorial 10: 英文分类模型](https://openi.pcl.ac.cn/PengChengMind-Corpora/DataForge/src/branch/master/EnDomain)
 
 
 ## 联系我们
