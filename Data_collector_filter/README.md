@@ -18,12 +18,13 @@
 
 ### 一键体验
 
-```
+
 #### 1.下载预训练权重
 ```
     wget -O model.bin https://openi.pcl.ac.cn/PengChengMind-Corpora/DataForge/src/branch/master/Data_collector_filter/models/fasttext.bin
 ```
 
-
 #### 2. 模型推理
-python fastText_test_xx.py
+```
+    python fastText_test_xx.py
+```
