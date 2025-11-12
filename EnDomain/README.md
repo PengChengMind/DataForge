@@ -16,11 +16,9 @@
 
 
 
-##  鹏城脑海模型英文数据领域分布结果
 ### 英文文本数据领域分类体系
 综合参考了《美国国会图书馆分类法》与《英文学科体系分类方法》，并结合现有数据情况，形成38个英文文本数据领域，包括："Physics", "Computer Science", "Mathematics", "Materials Science", "Astronomy", "Earth Science", "Engineering and technology", "Others", "Language and literature", "Law","Medicine and health", "Environment studies and forestry", "Communication technology", "Transportation", "Biology", "Education", "Economics","Entertainment and tourism", "Religious Studies", "Arts", "Philosophy", "Business", "Geography","Agriculture", "Political Science","History", "Psychology", "Sociology", "Architecture and design", "Human physical performance and recreation", "Military science","Food science", "Information and communication sciences",
  "Management Science", "Archaeology", "Energy science", "Chemistry", "Aerography".
 ### 数据领域分布
-请查看
-[英文领域分布语料](https://openi.pcl.ac.cn/PengChengMind-Corpora/PCMind_en_dataset)
+请查看 [英文领域分布语料](https://openi.pcl.ac.cn/PengChengMind-Corpora/PCMind_en_dataset)
 
