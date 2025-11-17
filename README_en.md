@@ -1,3 +1,16 @@
+# DataForge
+
+-----------------------------------------------------------------------
+Data is one of the fundamental elements driving advancements in the field of artificial intelligence. As large-scale pre-trained models and related technologies continue to achieve breakthroughs, the use of efficient data processing tools to improve data quality has become increasingly important in relevant research. DataCollector2 integrates multiple data processing tools and algorithms, including data cleaning, sensitive word filtering, advertisement word filtering, and automatic corpus quality evaluation, aiming to provide secure and trustworthy mainstream data for Chinese AI large models.
+
+DataForge supports the following features:
+
+* Building rich, high-quality Chinese datasets that align with national ideological values.
+* Generating different versions of datasets tailored to various needs by adjusting data processing logic at each stage.
+* Rapidly cleaning high-quality Chinese data from raw HTML or text, with a focus on removing sensitive information to avoid privacy leakage risks.
+
+--------------------------------------------------------------------------------
+
 ## Getting Started
 
 We provide a series of user guides to help users quickly experience the features of FlagData.
