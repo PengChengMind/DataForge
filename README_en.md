@@ -8,7 +8,7 @@ We provide a series of user guides to help users quickly experience the features
 * [Tutorial 5: Advertisement Filtering](https://openi.pcl.ac.cn/PengChengMind-Corpora/DataForge/src/branch/master/adv_filter)
 * [Tutorial 6: Chinese Quality Evaluation Tool](https://openi.pcl.ac.cn/PengChengMind-Corpora/DataForge/src/branch/master/DataCollector2/quality_EvaluateTool)
 * [Tutorial 7: English Quality Evaluation Tool](https://openi.pcl.ac.cn/PengChengMind-Corpora/DataForge/src/branch/master/DataCollector2/quality_EvaluateTool)
-* [Tutorial 9: Chinese Domain Classification Model](https://openi.pcl.ac.cn/PengChengMind-Corpora/DataForge/src/branch/master/ZhDomain)
+* [Tutorial 8: Chinese Domain Classification Model](https://openi.pcl.ac.cn/PengChengMind-Corpora/DataForge/src/branch/master/ZhDomain)
 * [Tutorial 9: English Domain Classification Model](https://openi.pcl.ac.cn/PengChengMind-Corpora/DataForge/src/branch/master/EnDomain)
 
 

@@ -55,7 +55,7 @@ DataForge支持以下特性：
 * [Tutorial 5: 广告词过滤器](https://openi.pcl.ac.cn/PengChengMind-Corpora/DataForge/src/branch/master/adv_filter)
 * [Tutorial 6: 中文质量评估工具](https://openi.pcl.ac.cn/PengChengMind-Corpora/DataForge/src/branch/master/DataCollector2/quality_EvaluateTool)
 * [Tutorial 7: 英文质量评估工具](https://openi.pcl.ac.cn/PengChengMind-Corpora/DataForge/src/branch/master/DataCollector2/quality_EvaluateTool)
-* [Tutorial 9: 中文分类模型](https://openi.pcl.ac.cn/PengChengMind-Corpora/DataForge/src/branch/master/ZhDomain)
+* [Tutorial 8: 中文分类模型](https://openi.pcl.ac.cn/PengChengMind-Corpora/DataForge/src/branch/master/ZhDomain)
 * [Tutorial 9: 英文分类模型](https://openi.pcl.ac.cn/PengChengMind-Corpora/DataForge/src/branch/master/EnDomain)
 
 
