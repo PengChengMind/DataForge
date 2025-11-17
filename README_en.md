@@ -13,7 +13,7 @@ DataForge supports the following features:
 
 ## Getting Started
 
-We provide a series of user guides to help users quickly experience the features of FlagData.
+We provide a series of user guides to help users quickly experience the features of DataForge.
 * [Tutorial 1: Data Preprocessing](https://openi.pcl.ac.cn/PengChengMind-Corpora/DataForge/src/branch/master/CleanRules)
 * [Tutorial 2: Inter-Sample Deduplication](https://openi.pcl.ac.cn/PengChengMind-Corpora/DataForge/src/branch/master/InterDeduplication)
 * [Tutorial 3: Intra-Sample Deduplication](https://openi.pcl.ac.cn/PengChengMind-Corpora/DataForge/src/branch/master/IntraDeduplication)
