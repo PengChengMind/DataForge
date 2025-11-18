@@ -10,7 +10,7 @@ Concurrent corpus cleaning rules script: rules_clean_multi_process.py
     - Rule: Remove the entire data record.
     - Code:
 ```
-    # 标点符号过多
+    # Excessive punctuation
     punctuation = '|_>.·*'
     punctuation_string = string.punctuation
     punc_count = sum([content.count(char) for char in punctuation_string])
@@ -22,7 +22,7 @@ Concurrent corpus cleaning rules script: rules_clean_multi_process.py
     - Rule：Remove the consecutively matched strings identified by regular expression
     - Code:
 ```
-    # 连续特殊符号，则删除字符
+    # Consecutive special characters, delete
     pattern_symbol_same = re.compile(r"[-]{4,}|[.]{4,}|[=]{4,}", re.S)
     content = re.sub(pattern_symbol_same, ' ', content)
 ```
@@ -30,7 +30,7 @@ Concurrent corpus cleaning rules script: rules_clean_multi_process.py
     - Rule：Remove meaningless special characters
     - Code:
 ```
-    # 特殊符号且无含义，则只删除字符
+    # Remove meaningless special characters
     pattern_symbol_special = re.compile(r"[\¤\⌒\々\〓\▌\◇\▲\△\▪\★\◆\▼\●\▽\◁\☆\○]", re.S)
     content = re.sub(pattern_symbol_special, '', content)
 ```
