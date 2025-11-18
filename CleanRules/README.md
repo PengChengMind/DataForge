@@ -1,14 +1,14 @@
-# 数据清洗说明
+# Introduction
 
-## 1. 前期工作
-1. 语料文件格式转换，parquet转json格式脚本：parquet_to_json.py
-2. 语料大文件切分，支持清洗功能的进程池多进程并发，切分脚本：1-bigfile_split_500M_mindspore_dataset.py
-## 2. 清洗规则
-并发语料规则清洗脚本：rules_clean_multi_process.py
-### 2.1 数据记录清洗规则
-- 统计标点符号比例，过滤掉标点符号比例过低的数据
-    - 处理逻辑：删除整条数据记录
-    - 代码逻辑
+## 1. Preliminary Work
+1. Corpus file format conversion: Script for converting Parquet to JSON format: parquet_to_json.py
+2. Large corpus file splitting: Supports multiprocessing with process pools for efficient cleaning; splitting script: 1-bigfile_split_500M_mindspore_dataset.py
+## 2. Cleaning Rules
+Concurrent corpus cleaning rules script: rules_clean_multi_process.py
+### 2.1 Data Record Cleaning Rules
+- Calculate the proportion of punctuation characters and filter out data records with excessively low punctuation ratios.
+    - Rule: Remove the entire data record.
+    - Code:
 ```
     # 标点符号过多
     punctuation = '|_>.·*'
@@ -18,25 +18,25 @@
         is_delete = True
         return is_delete,content
 ```
-- 连续特殊字符
-    - 处理逻辑：删除正则匹配到的连续字符串
-    - 代码逻辑
+- Consecutive Special Characters
+    - Rule：Remove the consecutively matched strings identified by regular expression
+    - Code:
 ```
     # 连续特殊符号，则删除字符
     pattern_symbol_same = re.compile(r"[-]{4,}|[.]{4,}|[=]{4,}", re.S)
     content = re.sub(pattern_symbol_same, ' ', content)
 ```
-- 无语义特殊字符
-    - 处理逻辑：删除无语义特殊字符
-    - 代码逻辑
+- Meaningless Special Characters
+    - Rule：Remove meaningless special characters
+    - Code:
 ```
     # 特殊符号且无含义，则只删除字符
     pattern_symbol_special = re.compile(r"[\¤\⌒\々\〓\▌\◇\▲\△\▪\★\◆\▼\●\▽\◁\☆\○]", re.S)
     content = re.sub(pattern_symbol_special, '', content)
 ```
-- html内容提取
-    - 处理逻辑：语料数据html格式内容，只做有效数据提取
-    - 代码逻辑
+- HTML Content Extraction
+    - Rule：Extract only valid data from HTML-formatted corpus content
+    - Code:
 ```
 def html2plaintext(html):
     soup = BeautifulSoup(html, features="html.parser")
@@ -64,18 +64,18 @@ def html2plaintext(html):
     # print(text)
     return text
 ```
-### 2.2 数据行清洗规则
-- 空行
-    - 处理逻辑：删除行数据
-    - 代码逻辑
+### 2.2 Line Cleaning Rules
+- Empty Lines
+    - Rule：Delete the line data
+    - Code:
 ```
     if line == '\n':
         is_delete = True
         return is_delete
 ```
-- 统计行数据特殊字符比例，限制低于某一阈值
-    - 处理逻辑：若大于阈值，则删除行数据
-    - 代码逻辑
+- Calculate the proportion of special characters in line data, with a lower threshold limit
+    - Rule：If the proportion exceeds the threshold, delete the line data
+    - Code:
 ```
     punctuation = '|_>.·*'
     if line:
@@ -85,21 +85,21 @@ def html2plaintext(html):
             is_delete = True
             return is_delete
 ```
-## 3. 清洗示例
-- 针对连续特殊字符的清洗
-    - 清洗前/后示例
+## 3. Cleaning Examples
+- Cleaning of consecutive special characters
+    - Example before/after cleaning
 ```
-清洗前
+Before:
 cat test.json
 {"text": "你好啊，我就是測試下，然後學習下。----------------this..................that===================these--those...---------------"}
 
-清洗后
+After:
 cat test_2023-10-16-17-19-26_clean.json
 {"text": "你好啊，我就是測試下，然後學習下。 this that these--those... "}
 ```
-## 4. 后期工作
-1. 清理结果文件进行合并操作，合并的命令脚本：merge.sh
-2. 清洗后结果文件，进行样本去重
-### 4.1 质量评估
-1. 使用模型进行语料质量评估
-2. 人工抽审进行语料质量评估
+## 4. Post-processing
+1. Merge the cleaned result files using the merge script: merge.sh
+2. Perform sample deduplication on the cleaned output files
+### 4.1 Quality Evaluation
+1. Use models to evaluate corpus quality
+2. Conduct manual sampling review to evaluate corpus quality
