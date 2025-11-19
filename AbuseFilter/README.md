@@ -1,32 +1,39 @@
-在构建和维护大规模语言模型的过程中 ，确保语料库的安全性和合规性是至关重要的。这不仅涉及到数据的清洗和质量控制，还需要对语料进行意识形态的精细过滤，以避免潜在的偏见和不当内容。前文提及的数据清洗流程，包括去除无关内容、重复的数据样本以及表达混乱的文本，为语料库的初步清洗奠定了基础。然而，为了进一步提升语料的安全性和合规性，我们需要引入更精细的过滤方法。
-为此，我们设计了大语言模型语料安全过滤服务。该服务采用了模型过滤方案，通过分层过滤策略在语料清洗过程中逐步提升数据质量和召回率，实现高效、精准的语料筛选。
+# Large Language Model Corpus Safety Filtering Service
 
-### 训练数据
-* 训练集：18万条样本，正样本数约为10.4万条，负样本数约为7.6万条；
-* 数据集经过了以下预处理步骤：
-（1）分词：将文本分割为单词或子词；
-（2）规范化：将文本转为小写，去除标点符号，处理特殊字符。
-（3）停用词去除：删除对模型性能贡献不大的常用词。
-（4）词干提取/词形还原：将单词还原为词根形式。
-* 模型评估：交叉验证，模型预测准确率为98.7%。
+During the construction and maintenance of large language models, ensuring the **safety** and **compliance** of the corpus is of critical importance. This involves not only data cleaning and quality control, but also fine-grained ideological filtering to avoid potential biases and inappropriate content. The data cleaning process described earlier—including removal of irrelevant content, duplicate samples, and incoherent text—lays the foundation for initial corpus preprocessing. However, to further enhance corpus safety and compliance, more sophisticated filtering methods are required. To address this need, we have developed a **Corpus Safety Filtering Service for Large Language Models**. This service employs a **model-based filtering approach** with a **hierarchical filtering strategy**, progressively improving data quality and recall during the cleaning pipeline to achieve efficient and precise corpus screening.
 
-### 一键体验
-#### 1. 下载并安装
-* 程序运行环境配置参考zrequirements.txt
-```
-    pip install -r zrequirements.txt
-```
-#### 2.下载预训练权重
+---
+
+## Training Data
+
+- **Training Set**: 180,000 samples, including Positive samples: ~104,000 and Negative samples: ~76,000  
+
+- **Preprocessing Steps**:
+  1. **Tokenization**: Splitting text into words or subwords.
+  2. **Normalization**: Converting text to lowercase, removing punctuation, and handling special characters.
+  3. **Stopword Removal**: Removing common words that contribute little to model performance.
+  4. **Stemming/Lemmatization**: Reducing words to their root forms.
+
+- **Model Evaluation**:  
+  Evaluated using cross-validation. The model achieves a prediction accuracy of **98.7%**.
+
+---
+
+## Quick Start Guide
+
+### 1. Download and Install Dependencies
+
+- Refer to `zrequirements.txt` for environment configuration:
+  ```bash
+  pip install -r zrequirements.txt
+
+#### 2.Download Pretrained Model Weights
 ```
     wget -O model.bin https://openi.pcl.ac.cn/PengChengMind-Corpora/DataForge/src/branch/master/AbuseFilter/model.pt
 ```
 
-#### 3. 流式服务（可选）
+#### 3. Run as a Streaming Service (Optional)
 python apicall.py --port 8080 --workers 4
 
 
-有任何问题，提 Issue 或邮件 zhangy03@pcl.ac.cn 即可。
-
-
-
-
+For any questions, please submit an Issue or email zhangy03@pcl.ac.cn.
