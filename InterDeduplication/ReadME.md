@@ -1,72 +1,86 @@
-# 样本间去重方法与运行说明
+# InterDeduplication Methods and Run Instructions
 
-## 一、样本间数据去重方法
+## I. Introduction
 
-样本间数据去重包含两类方法，均基于Spark分布式处理框架实现：
+Deduplication between samples includes two categories, both implemented
+based on the Spark distributed processing framework:
 
-### 1. 模糊去重
+### 1. Fuzzy Deduplication
 
-采用分布式Simhash、前缀剪枝等技术，基于文本的Jaccard距离和海明距离，对相似文本进行相似度判定和去重，适用于对重复度较为敏感的场景。
+Uses distributed Simhash, prefix pruning, and related techniques. It
+determines similarity based on text Jaccard distance and Hamming
+distance, allowing removal of similar texts. This method is suitable for
+scenarios sensitive to repeated content.
 
-### 2. 快速去重
+### 2. Fast Deduplication
 
-根据数据重复的特征和LLM对重复度的要求，通过特定规则实现高效去重，适用于对速度要求较高的场景。
+Based on characteristics of the data and the deduplication requirements
+of LLMs, this method applies rule-based rapid deduplication. It is
+suitable for scenarios with high performance requirements.
 
 ------------------------------------------------------------------------
 
-## 二、运行方式
+## II. Run Instructions
 
-### 1. 运行环境
+### 1. Runtime Environment
 
     Spark  : 3.0.1  
     Hadoop : 2.10.1  
     Scala  : 2.12.12
+
+The code is mainly written in Scala (natively supported by Spark). Some
+functions are implemented in Java. Required dependencies are organized
+through Maven and can be assembled into an executable JAR using the
+assembly plugin.
+
 ------------------------------------------------------------------------
-代码主要基于Spark原生支持的Scala语言构建，部分函数方法通过java实现，所需依赖通过maven仓库组织，可通过assembly打包，生成可执行jar包。
 
-### 2. 模糊去重
+### 2. Fuzzy Deduplication
 
-### 运行命令
+### Run Command
 
 ``` bash
 spark-submit  \
    --class tool.distinct.SimhashPrefixIdfDuplicate   \
    --master yarn   \
-   --deploy-mode client  \ 
-   --num-executors ${executors}  \ 
-   --driver-memory ${driver_memory} \  
-   --executor-memory ${executor_memory} \  
+   --deploy-mode client  \
+   --num-executors ${executors}  \
+   --driver-memory ${driver_memory} \
+   --executor-memory ${executor_memory} \
    --executor-cores ${executor_cores}   \
-   SparkScalaProjects-3.0-SNAPSHOT-jar-with-dependencies.jar \  
+   SparkScalaProjects-3.0-SNAPSHOT-jar-with-dependencies.jar \
    --input $input_path   \
-   --output $output_path  \ 
-   --haming_distance $ham  \ 
-   --jaccard_distance $distance \  
+   --output $output_path  \
+   --haming_distance $ham  \
+   --jaccard_distance $distance \
    --file_mode json   \
    --json_field text   \
    --language_mode cn   \
    --tokenizer_mode jieba
 ```
 
-#### 主要参数说明
-其中executors、driver_memory等参数请根据自己的集群资源情况进行配置
- | 参数                  | 说明                                   | 默认值|
- |:-----------------------|:---------------------------------------|:--------|
- | **haming_distance**    |样本间海明距离，越大模糊判定阈值越松    |3|
- | **jaccard_distance**   |样本间 Jaccard 距离，越大重复判定越松   |0.1|
- | **file_mode**          |建议统一使用 json                       |json|
- | **json_field**         |文本字段名                              |text|
- | **language_mode**      |cn：中文；en：英文                      |cn|
- | **tokenizer_mode**     |中文：jieba；英文：sep（空白符）        |sep|
+#### Parameter Description
+
+Please configure parameters such as *executors*, *driver_memory*, etc.,
+according to your cluster resources.
+
+  |Parameter              |Description                                  |Default|
+  |:---------------------- |:-------------------------------------------- |:---------|
+  |**haming_distance**    |Hamming distance threshold; larger = looser matching  |3|
+  |**jaccard_distance**   |Jaccard distance threshold; larger = looser matching  |0.1|
+  |**file_mode**          |Recommended to use `json`                    |json|
+  |**json_field**         |Text field name                              |text|
+  |**language_mode**      |cn: Chinese; en: English                     |cn|
+  |**tokenizer_mode**     |Chinese: jieba; English: sep (whitespace)    |sep|
 
 ------------------------------------------------------------------------
 
-### 3. 快速去重
+### 3. Fast Deduplication
 
-### 运行命令
+### Run Command
 
 ``` bash
-spark-submit   
+spark-submit   \
     --class tool.distinct.LanguageExactDuplicate   \
     --master yarn   \
     --deploy-mode client   \
@@ -84,12 +98,15 @@ spark-submit
     --stop_size 200
 ```
 
-#### 主要参数说明
+#### Parameter Description
 
- | 参数                 |说明                                  | 默认值|
- |:--------------------|:------------------------------------|:------|
- | **file_mode**       |建议统一使用 json                       |json|
- | **json_field**      |文本字段名                              |text|
- | **language_mode**   |cn：中文；en：英文                       |cn|
- | **tokenizer_mode**  |中文：jieba；英文：sep                   |jieba|
- | **stop_size**       |模糊程度阈值，越大过滤高频词越多，重复判定越松  |200|
+
+  |Parameter           | Description                                                   |Default|
+  |:--------------------|:--------------------------------------------------------------|:---------|
+  |**file_mode**        | Recommended to use `json`                                     |json|
+  |**json_field**       | Text field name                                               |text|
+  |**language_mode**    | cn: Chinese; en: English                                      |cn|
+  |**tokenizer_mode**   | Chinese: jieba; English: sep                                  |jieba|
+  |**stop_size**        | Threshold for filtering high-frequency tokens;larger = looser |200|
+                                                         
+
