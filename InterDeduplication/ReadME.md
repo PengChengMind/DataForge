@@ -100,7 +100,6 @@ spark-submit   \
 
 #### Parameter Description
 
-
   |Parameter           | Description                                                   |Default|
   |:--------------------|:--------------------------------------------------------------|:---------|
   |**file_mode**        | Recommended to use `json`                                     |json|
