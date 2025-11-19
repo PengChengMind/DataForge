@@ -107,6 +107,6 @@ spark-submit   \
   |**json_field**       | Text field name                                               |text|
   |**language_mode**    | cn: Chinese; en: English                                      |cn|
   |**tokenizer_mode**   | Chinese: jieba; English: sep                                  |jieba|
-  |**stop_size**        | Threshold for filtering high-frequency tokens;larger = looser |200|
+  |**stop_size**        | Threshold for filtering high-frequency tokens;larger = looser matching|200|
                                                          
 
