@@ -10,17 +10,13 @@
 
 
 ## 2. 数据质量评估方法
-<div align=left>
-<img src="../Docs/quality_Eva2.png" width="800" height="300"/><br/>
-</div>
 
 * **对不同类别（如books、webText、patent等）设置不同的过滤阈值**
 
 * **通过多个质量评估器对预料质量进行研判**
 
 * **模型选择**
- [gpt2](https://huggingface.co/gpt2) 、[PanGu](https://openi.org.cn/pangu/)、[GLM-6B](https://huggingface.co/THUDM/chatglm2-6b)、[InternLM-7B](https://huggingface.co/internlm/internlm-7b)
-
+ [gpt2](https://huggingface.co/gpt2) 
 ## 3. 快速使用指南
 * 安装相应包：
 ```
