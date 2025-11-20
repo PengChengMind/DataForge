@@ -2,7 +2,7 @@
 * Training Corpus: 25,000 training samples  
   Validation Set Size: 5,000 samples
 
-* Model Selection: BERT-based Chinese text classification model
+* Model Selection: BERT-based English text classification model
 * Model Training:
 ```
     python run.py --model bert --data_path /DATA_PATH/ 
