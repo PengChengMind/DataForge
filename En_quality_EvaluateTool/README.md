@@ -51,23 +51,23 @@ python predict_new7B.py \
 ### NPU Model to GPU Conversion
 Conversion Process:
 
-1. Convert merged-NPU model files to NPY intermediate files
+#### 1. Convert merged-NPU model files to NPY intermediate files
 
 ```bash
 python tools/check_merged_ckpt_7B.py
 ```
-**(1).Path of merged NPU-ckpt file：$ckpt_full_name**
+##### (1).Path of merged NPU-ckpt file：$ckpt_full_name**
 
-**(2).Path of conveted NPY file：$ckpt_obs_path**
+##### (2).Path of conveted NPY file：$ckpt_obs_path**
 
-2. Use the torch library to run the following conversion script, converting the NPY intermediate files into a GPU model.
+#### 2. Use the torch library to run the following conversion script, converting the NPY intermediate files into a GPU model.
 
 ```bash
 python tools/convert_ms_to_megatron.py
 ```
-**(1).Path of intermediate NPY file：$ms_npy_base_path/merged_ckpt.npy**
+##### (1).Path of intermediate NPY file：$ms_npy_base_path/merged_ckpt.npy**
 
-**(2).Output GPU Model：$pt_save_path/model_optim_rng.pt**
+##### (2).Output GPU Model：$pt_save_path/model_optim_rng.pt**
 
 ### Declaration
 [PCMind Model Open Source License](./docs/鹏城·脑海模型开源协议.pdf)
