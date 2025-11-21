@@ -1,4 +1,4 @@
-The PCMind English Quality Evaluation Large Model is trained based on the PCMind project and follows the Transformer autoregressive architecture. It has been pre-trained specifically for the scenario of English text quality evaluation. For detailed code, please refer to[PengCheng-Mind](https://openi.pcl.ac.cn/PengChengMind/PengChengMind-7B)
+The PCMind English Quality Evaluation Large Model is trained based on the PCMind project and follows the Transformer autoregressive architecture. It has been pre-trained specifically for the scenario of English text quality evaluation. For detailed code, please refer to [PengCheng-Mind](https://openi.pcl.ac.cn/PengChengMind/PengChengMind-7B)
 
 ### Model Structure
 | PCMind 7B       | Parameters     |
