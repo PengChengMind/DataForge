@@ -3,10 +3,8 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from sklearn import metrics
 import time
 from utils import get_time_dif
-from pytorch_pretrained.optimization import BertAdam
 from importlib import import_module
 import argparse
 from utils import build_dataset, build_iterator, get_time_dif,build_infer_dataset,build_infer_dataset_multiprocess
