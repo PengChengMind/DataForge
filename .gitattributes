@@ -2,6 +2,6 @@ Data_collector_filter/models/fasttext.bin filter=lfs diff=lfs merge=lfs -text
 Data_collector_filter/tokenizer/w2c/cc.tx.200.vec filter=lfs diff=lfs merge=lfs -text
 En_quality_EvaluateTool/models/PC_Mind_350M-30000.ckpt filter=lfs diff=lfs merge=lfs -text
 *.bin filter=lfs diff=lfs merge=lfs -text
-*.pt filter=lfs diff=lfs merge=lfs -text
 *.vec filter=lfs diff=lfs merge=lfs -text
+*.pt filter=lfs diff=lfs merge=lfs -text
 *.ckpt filter=lfs diff=lfs merge=lfs -text
