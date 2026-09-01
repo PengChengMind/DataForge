@@ -67,8 +67,3 @@ DataForge支持以下特性：
 DataForge项目基于 [Apache 2.0 协议](LICENSE)。
 
 
-
-如果本平台对您的科研工作提供了帮助，可在论文致谢中加入：
-英文版：Thanks for the support provided by OpenI Community (https://openi.pcl.ac.cn).
-中文版：感谢启智社区提供的技术支持(https://openi.pcl.ac.cn)。
-  

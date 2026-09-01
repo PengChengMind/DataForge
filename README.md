@@ -32,9 +32,4 @@ If you have any question regarding the usage or code of this project, you can su
 ## License
 DataForge Project is licensed under the [Apache 2.0 LICENSE](LICENSE)。
 
-
-
-If this platform has supported your research work, you may include the following acknowledgment in your paper：
-English：Thanks for the support provided by OpenI Community (https://openi.pcl.ac.cn). 
-Chinese：感谢启智社区提供的技术支持(https://openi.pcl.ac.cn)。
   
