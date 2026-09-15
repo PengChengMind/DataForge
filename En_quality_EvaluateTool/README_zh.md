@@ -1,75 +1,120 @@
- 鹏城·脑海英文质量评估大模型是基于PengCheng-Mind项目完成训练，模型沿用Transformer自回归架构。针对英文文本质量评估场景进行预训练。详细代码请参见[PengCheng-Mind](https://openi.pcl.ac.cn/PengChengMind/PengChengMind-7B)
+ # CCNet Filter
 
-### 模型结构
-|   PengCheng-Mind 7B     |    结构参数      |
-| :-------------| :--------------- |
-| seq_length    | 4096 | 
-| vocab_size    | 125952 | 
-| embedding_size    | 4096 | 
-| num_layers    | 32 | 
-| num_heads    | 32 |
+基于 **KenLM 困惑度（Perplexity）** 对英文语料做质量评估与筛选，思路对齐 [CCNet](https://github.com/facebookresearch/cc_net)：用语言模型给文本打分，再按阈值分桶或按比例保留优质样本。
 
-### 环境要求
+## 原理简述
 
-支持 python >= 3.7.5, mindspore >= 2.1 版本.
+1. 用 **SentencePiece** 分词
+2. 用 **KenLM** 计算文本困惑度（PPL）
+3. 对照 `cutoff.csv` 中的百分位阈值，将样本分为：
+   - `head`：PPL 较低（更“像”语言模型分布，通常质量较好）
+   - `middle`
+   - `tail`：PPL 较高（更嘈杂 / 质量较差）
+4. （可选）按 PPL 排序，只保留前一定比例的样本
 
-推荐使用mindspore的官方 docker 镜像 (http://mirrors.cn-central-221.ovaijisuan.com/mirrors.html)
+默认阈值：`percentile_head = 30`，`percentile_tail = 60`（取自 `cutoff.csv` 的 `en` 列）。
 
-| 硬件平台       | 操作系统         |框架         |7B推理设备数量  |7B微调设备数量  |
-| :------------|:--------------- |:---------- |:------------------|:---------------|
-| Ascend 910    | EulerOS-aarch64 |MindSpore   |1卡               |≥16卡             |  
+## 目录结构
 
-### 英文质量评估模型下载
-[鹏城·脑海英文质量评估模型下载](https://openi.pcl.ac.cn/PengChengMind-Corpora/DataForge/src/branch/master/En_quality_EvaluateTool/models/PC_Mind_350M-30000.ckpt)
-
-### 使用方式
-请参照[脑海模型](https://openi.pcl.ac.cn/PengChengMind/PengChengMind-7B)项目
-
-#### 7B 鹏城·脑海模型推理
-启动命令（--offline 1代表使用NPU裸机，修改脚本中local_ckpt_path为脑海7B预训练模型文件路径; --offline 0代表使用modelarts环境,修改脚本中gpu_model_npy_obspath为脑海7B预训练模型文件路径;）:
-```bash
-python predict_new7B.py \
---run_type predict \
---mode 7B \
---vocab_size 125952 \
---seq_length 4096 \
---distribute true \
---use_pynative_op 1 \
---op_level_model_parallel_num 1 \
---device_num 1 \
---stage_num 1 \
---top_p 1.0 \
---top_k_num 3 \
---max_generate_length 100 \
---pre_trained true \
---use_rope True \
---use_past True \
---offline 1
+```
+cc/
+├── en.sp.model              # SentencePiece 英文分词模型
+├── en.sp.vocab              # 词表
+├── cutoff.csv               # 多语言 PPL 百分位阈值表
+├── kenlm_zyh_quality_assessment.py   # 本地：计算 PPL + 分桶
+├── en-kenlm_quality_ppl.py           # 云端（ModelArts/OBS）：计算 PPL + 分桶
+└── en_1-cat_ppl_merge.py             # 云端：按 PPL 排序并按比例保留/丢弃
 ```
 
+> 另需准备 KenLM 二进制模型 `en.arpa.bin`（脚本中引用，需自行放到对应路径）。
 
-### NPU 模型转 GPU
-转换流程：
+## 依赖
 
-一、merged-NPU模型文件，转NPY中间文件
+- Python 3
+- `sentencepiece`
+- `kenlm`
+- `pandas`
+- 云端脚本额外需要：`moxing`（华为云 OBS）、多进程环境
+
+## 使用说明
+
+### 1. 本地打分与分桶
+
+`kenlm_zyh_quality_assessment.py`
+
+- 输入：`./sample_for_filter/*.json`（JSONL，每行含 `text` 字段）
+- 输出：`./sample_for_filter_processed/`（原字段 + `perplexity`、`bucket`）
+- 模型路径约定：`./data/en.sp.model`、`./data/en.arpa.bin`、`./data/cutoff.csv`
+- 支持多线程；已处理文件会记入 `processed_files.txt`，可断点续跑
 
 ```bash
-python tools/check_merged_ckpt_7B.py
+python kenlm_zyh_quality_assessment.py
 ```
-**(1).merge后单个NPU-ckpt文件路径：$ckpt_full_name**
 
-**(2).转换出NPY文件路径：$ckpt_obs_path**
+### 2. 云端批量打分（OBS）
 
-二、NPY中间文件，通过torch库，执行以下转换脚本，转换生成GPU模型
+`en-kenlm_quality_ppl.py`
 
-```bash
-python tools/convert_ms_to_megatron.py
+从 OBS 拉取 JSON，计算 PPL 与 bucket，再写回 OBS。
+
+主要参数：
+
+| 参数 | 说明 |
+|------|------|
+| `--input_obs_dir` | 输入 OBS 目录 |
+| `--data_name` | 子目录/数据集名 |
+| `--output_obs_dir` | 输出 OBS 目录 |
+| `--rank` / `--task_num` | 分片任务编号 |
+| `--num_process` | 进程数（默认 24） |
+
+### 3. 按困惑度筛选保留
+
+`en_1-cat_ppl_merge.py`
+
+对已带 `perplexity` 的数据按升序排序，保留前 `ratio` 比例，其余写入 discarded。
+
+| 参数 | 说明 |
+|------|------|
+| `--ratio` | 保留比例（默认 `0.7`） |
+| `--input_obs_dir` / `--output_obs_dir` | OBS 输入输出 |
+| `--data_name` | 数据集名 |
+| `--num_process` | 进程数 |
+
+输出示例：
+
+- `reserved/{data_name}.json`：保留部分
+- `discarded/{data_name}-last_0.30.json`：丢弃部分（当 `ratio=0.7`）
+
+## 输入数据格式
+
+JSONL，每行一个对象，至少包含：
+
+```json
+{"text": "your document text here"}
 ```
-**(1).中间NPY文件路径：$ms_npy_base_path/merged_ckpt.npy**
 
-**(2).输出GPU模型：$pt_save_path/model_optim_rng.pt**
+处理后额外字段：
 
-### 声明
-[鹏城·脑海模型开源协议](./docs/鹏城·脑海模型开源协议.pdf)
+```json
+{"text": "...", "perplexity": 123.4, "bucket": "head"}
+```
 
-[数据集/算力来源声明]()
+## 推荐流程
+
+```
+原始 JSONL
+    │
+    ▼
+en-kenlm_quality_ppl.py / kenlm_zyh_quality_assessment.py   # 算 PPL、分桶
+    │
+    ▼
+en_1-cat_ppl_merge.py                                       # 按 PPL 保留 top-k%
+    │
+    ▼
+高质量语料（reserved）
+```
+
+## 说明
+
+- 本仓库侧重英文（`en`）；`cutoff.csv` 中含多语言阈值，可扩展到其他语种。
+- 云端脚本面向华为云 ModelArts + OBS（`moxing`），本地试用请改路径并用本地版脚本。
