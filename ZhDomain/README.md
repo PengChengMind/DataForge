@@ -69,6 +69,4 @@ Row-normalized confusion matrix (left) and per-class error matrix (right):
 
 By comprehensively referencing the "Chinese Library Classification" and the "Chinese Academic Discipline Classification Method", along with existing data conditions, a system of 40 Chinese text data domains has been established, including: "Law", "Chemistry", "Physics", "Education", "Medicine", "History", "Political Science", "Management", "Geography", "Mathematics", "Computer Science", "Others", "Biology", "Leisure and tourism", "Literature", "Electronic information", "Economics", "Environmental science", "Safety and fire engineering", "Urban planning", "Arts", "Sports", "E-commerce", "Film reviews", "Agriculture", "Transportation", "Materials Science", "Energy science", "Food science", "Military science", "Psychology", "Meteorology", "Light industry", "Astronomy", "Communication technology", "Advertising", "Games and entertainment", "Philosophy", "Religion", "Heavy industry".
 
-### Data Domain Distribution
 
-* To be organized...
