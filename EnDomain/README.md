@@ -20,7 +20,7 @@ Overall validation accuracy: **92.00%** (N=5000). Macro F1: **0.7893** | Weighte
 
 Row-normalized confusion matrix (left) and per-class error matrix (right):
 
-![English domain classification error analysis](./en_domain_metrics.png)
+![English domain classification error analysis](../Docs/en_domain_metrics.png)
 
 | Domain | n | P | R | F1 |
 | --- | ---: | ---: | ---: | ---: |
